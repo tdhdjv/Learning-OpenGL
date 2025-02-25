@@ -1,7 +1,7 @@
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <iostream>
 #include <vector>
+/*
 #include <string>
 
 #include "vendor/std_image/std_image.h"
@@ -15,10 +15,19 @@
 #include "GameObjects/Camera.h"
 
 #include "GLObjects/FrameBuffer.h"
-#include "GLObjects/Texture.h"
 #include "GLObjects/Renderer.h"
 #include "GLObjects/ErrorCheck.h"
+*/
 
+#include "Core/Application.h"
+
+int main() {
+    Application* app = new Application("Learning OpenGL");
+    app->run();
+    delete app;
+}
+
+/*
 unsigned int loadCubemap(std::vector<std::string> faces) {
     unsigned int textureID;
     glGenTextures(1, &textureID);
@@ -320,7 +329,7 @@ int main() {
         glDepthFunc(GL_LESS);
         glCullFace(GL_FRONT);
 
-
+        /*
         //draw Normals
         geo.bind();
         geo.setUniformMat4f("view", camera.getViewMat());
@@ -343,7 +352,9 @@ int main() {
         count = mesh3->getIndexCount();
         GLCall(glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, NULL));
 
+        */
 
+        /*
         //transparent objects
         trans.bind(0);
         GLCall(glActiveTexture(GL_TEXTURE1));
@@ -395,3 +406,4 @@ int main() {
     return 0;
 }
 
+*/

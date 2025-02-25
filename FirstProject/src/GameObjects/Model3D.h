@@ -3,14 +3,32 @@
 #include <GLM/glm.hpp>
 #include "../GameObjects/Mesh.h"
 #include "../GLObjects/VertexLayout.h"
-#include "../GLObjects/Texture.h"
+#include "../GLObjects/Texture2D.h"
+
 
 struct Material {
-	Texture albedoMap;
-	Texture metallicMap;
-	Texture roughnessMap;
-	Texture normalMap;
-	Texture displacementMap;
+	const std::shared_ptr<Texture2D> albedoMap;
+	const std::shared_ptr<Texture2D> metallicMap;
+	const std::shared_ptr<Texture2D> roughnessMap;
+	const std::shared_ptr<Texture2D> normalMap;
+	const std::shared_ptr<Texture2D> displacementMap;
+
+	Material(std::shared_ptr<Texture2D> albedo, std::shared_ptr<Texture2D> metallic, std::shared_ptr<Texture2D> roughness,
+		std::shared_ptr<Texture2D> normal, std::shared_ptr<Texture2D>displacement)
+		: albedoMap(albedo),
+		metallicMap(metallic),
+		roughnessMap(roughness),
+		normalMap(normal),
+		displacementMap(displacement)
+	{}
+
+	void bindTextures(int starting_slot) const {
+		albedoMap->bind(starting_slot);
+		metallicMap->bind(starting_slot+1);
+		roughnessMap->bind(starting_slot+2);
+		normalMap->bind(starting_slot+3);
+		displacementMap->bind(starting_slot+4);
+	}
 };
 
 struct Vertex3D {
@@ -41,10 +59,14 @@ inline std::vector<float> vertex3DToVertexData(const std::vector<Vertex3D>& vert
     return vertexData;
 }
 
-class Model {
+class Model3D {
 private:
-	const Mesh& mesh;
-	const Material& material;
 
-	Model(const Mesh& mesh, const Material& material);
+	//Using a shared pointers since multiple models can have the same mesh/material
+	const std::shared_ptr<Mesh> mesh;
+	const std::shared_ptr<Material> material;
+
+public:
+	Model3D(const std::shared_ptr<Mesh> mesh, const std::shared_ptr<Material> material);
+	void render(const Shader& shader) const;
 };

@@ -1,6 +1,6 @@
-﻿  Main.cpp
+﻿  Application.cpp
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-  (compiling source file 'FirstProject/src/Main.cpp')
+  (compiling source file 'FirstProject/src/Core/Application.cpp')
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103):
       the template instantiation context (the oldest one first) is
           D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Mesh.h(61,29):

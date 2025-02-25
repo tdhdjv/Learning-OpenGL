@@ -64,33 +64,39 @@ std::string Shader::parseShader(const std::string &filepath) const {
 }
 
 
-void Shader::setUniform3f(const std::string name, float f1, float f2, float f3) {
+void Shader::setUniform3f(const std::string name, float f1, float f2, float f3) const {
+    bind();
     GLCall(glUniform3f(getUniformLocation(name), f1, f2, f3));
 }
 
-void Shader::setUniform3fv(const std::string name, glm::vec3 vec3Array[], unsigned int count) {
+void Shader::setUniform3fv(const std::string name, glm::vec3 vec3Array[], unsigned int count) const {
+    bind();
     GLCall(glUniform3fv(getUniformLocation(name), count, &vec3Array[0][0]));
 }
 
-void Shader::setUniform1i(const std::string name, int i1) {
+void Shader::setUniform1i(const std::string name, int i1) const {
+    bind();
     GLCall(glUniform1i(getUniformLocation(name), i1));
 }
 
-void Shader::setUniform1f(const std::string name, float f1) {
+void Shader::setUniform1f(const std::string name, float f1) const {
+    bind();
     GLCall(glUniform1f(getUniformLocation(name), f1));
 }
 
-void Shader::setUniform2f(const std::string name, float f1, float f2) {
+void Shader::setUniform2f(const std::string name, float f1, float f2) const {
+    bind();
     GLCall(glUniform2f(getUniformLocation(name), f1, f2));
 }
 
 
-void Shader::setUniformMat4f(const std::string name, glm::mat4 matrix) {
+void Shader::setUniformMat4f(const std::string name, glm::mat4 matrix) const {
+    bind();
     GLCall(glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
 }
 
-
-void Shader::setUniformDirectionalLights(const std::vector<DirectionalLight> dirLights) {
+void Shader::setUniformDirectionalLights(const std::vector<DirectionalLight> dirLights) const {
+    bind();
     GLCall(glUniform1i(getUniformLocation("dirLightCount"), dirLights.size()));
     for (unsigned int i = 0; i < dirLights.size(); i++) {
         DirectionalLight light = dirLights[i];
@@ -103,7 +109,8 @@ void Shader::setUniformDirectionalLights(const std::vector<DirectionalLight> dir
     }
 }
 
-void Shader::setUniformPointLights(const std::vector<PointLight> pointLights) {
+void Shader::setUniformPointLights(const std::vector<PointLight> pointLights) const {
+    bind();
     GLCall(glUniform1i(getUniformLocation("pointLightCount"), pointLights.size()));
     for (unsigned int i = 0; i < pointLights.size(); i++) {
         PointLight light = pointLights[i];
@@ -142,6 +149,7 @@ int Shader::compileShader(const unsigned int type, const std::string &filePath) 
 }
 
 void Shader::createShader(const std::string &vertexFilePath, const std::string &fragmentFilePath) {
+
     rendererID = glCreateProgram();
 
     vertexShader = compileShader(GL_VERTEX_SHADER, vertexFilePath);
@@ -155,7 +163,7 @@ void Shader::createShader(const std::string &vertexFilePath, const std::string &
     GLCall(glDeleteShader(fragmentShader));
 }
 
-int Shader::getUniformLocation(const std::string name) {
+int Shader::getUniformLocation(const std::string name) const{
     int location = glGetUniformLocation(rendererID, name.c_str());
     if(location == -1) {
         std::cout << "<Warning!> Uniform named '" << name << "' is Unused or doesn't exist" << std::endl;

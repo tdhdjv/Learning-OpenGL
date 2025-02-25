@@ -2,7 +2,15 @@
 #define PI 3.14159265359
 
 Camera::Camera()
-: zoom(1.0), position(0.0), pitch(0.0), yaw(0.0), roll(0.0), view(glm::vec3(0, 0, -1.0)), right(glm::vec3(-1.0, 0.0, 0.0)) {
+    : zoom(1.0),
+    position(0.0),
+    pitch(0.0),
+    yaw(0.0),
+    roll(0.0),
+    right(-1.0, 0.0, 0.0),
+    front(0.0, 0.0, 1.0),
+    view(0, 0, -1.0),
+    projectionMat(glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f)) {
     calcSetView();
 };
 

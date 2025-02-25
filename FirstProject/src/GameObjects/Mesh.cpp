@@ -5,13 +5,15 @@
 #include "Mesh.h"
 #include "Constructs.h"
 
-Mesh::Mesh(const std::vector<float>& vertexData, const std::vector<Triangle>& triangles, const VertexBufferLayout& layout) 
-:VAO(), 
-vertexBuffer(vertexData.data(), sizeof(float)* vertexData.size()),
-indexBuffer(triangleToIndex(triangles).data(), sizeof(unsigned int) * 3 * triangles.size()),
-position(0.0),
-scale(1.0),
-modelMat(1.0) {
+Mesh::Mesh(const std::vector<float>& vertexData, const std::vector<Triangle>& triangles, const VertexBufferLayout& layout)
+    :VAO(),
+    vertexBuffer(vertexData.data(), sizeof(float)* vertexData.size()),
+    indexBuffer(triangleToIndex(triangles).data(), sizeof(unsigned int) * 3 * triangles.size()),
+    meshData(vertexData, triangles, layout),
+    position(0.0),
+    scale(1.0),
+    modelMat(1.0) 
+{
 
     VAO.setBuffer(vertexBuffer, indexBuffer, layout);
 }

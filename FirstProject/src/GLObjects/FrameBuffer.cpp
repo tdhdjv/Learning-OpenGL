@@ -1,14 +1,20 @@
 #include "FrameBuffer.h"
 #include <iostream>
 
-FrameBuffer::FrameBuffer():
-    colorBufferTexture(1000, 800), renderBuffer() {
+FrameBuffer::FrameBuffer(int width, int height) {
+    GLCall(glGenTextures(1, &colorBufferTexture));
+    GLCall(glBindTexture(GL_TEXTURE_2D, colorBufferTexture));
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+    GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL));
+
     GLCall(glGenFramebuffers(1, &rendererID));
-    bind();
+    GLCall(glBindFramebuffer(GL_FRAMEBUFFER, rendererID));
 
     // create a color attachment texture
-    colorBufferTexture.unBind();
-    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorBufferTexture.getRendererID(), 0));
+    GLCall(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorBufferTexture, 0));
 
     // create a renderbuffer object for depth and stencil attachment
     renderBuffer.unBind();
@@ -32,5 +38,6 @@ void FrameBuffer::unBind() const {
 }
 
 void FrameBuffer::bindColorBufferTexture(unsigned int slot) const {
-    colorBufferTexture.bind(slot);
+    glActiveTexture(GL_TEXTURE0 + slot);
+    glBindTexture(GL_TEXTURE_2D, colorBufferTexture);
 }

@@ -12,7 +12,7 @@
 #include "../GLObjects/VertexLayout.h"
 #include "../GLObjects/IndexBuffer.h"
 
-#include "../GLObjects/Texture.h"
+#include "../GLObjects/Texture2D.h"
 #include "../GLObjects/Shader.h"
 
 struct Triangle {
@@ -70,6 +70,7 @@ private:
     const VertexArray VAO;
     const VertexBuffer vertexBuffer;
     const IndexBuffer indexBuffer;
+    const MeshData meshData;
 
     glm::vec3 scale;
     glm::vec3 position;
@@ -85,7 +86,7 @@ public:
     void setPosition(const glm::vec3 position);
     void setScale(const glm::vec3 scale);
 
-    inline glm::mat4& getModelMat() { return modelMat; }
-    inline const VertexArray& getVertexArray() { return VAO; }
-    inline unsigned int getIndexCount() { return indexBuffer.getCount(); }
+    inline const glm::mat4& getModelMat() const{ return modelMat; }
+    inline const VertexArray& getVertexArray() const { return VAO; }
+    inline unsigned int getIndexCount() const { return indexBuffer.getCount(); }
 };

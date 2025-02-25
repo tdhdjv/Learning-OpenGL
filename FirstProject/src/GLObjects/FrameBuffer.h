@@ -2,18 +2,17 @@
 
 #include <GLAD/glad.h>
 
-#include "Texture.h"
 #include "RenderBuffer.h"
 #include "ErrorCheck.h"
 
 class FrameBuffer {
 private:
 	unsigned int rendererID;
-	Texture colorBufferTexture;
+	unsigned int colorBufferTexture;
 	RenderBuffer renderBuffer;
 
 public:
-	FrameBuffer();
+	FrameBuffer(int width, int height);
 	~FrameBuffer();
 
 	void bind() const;

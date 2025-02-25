@@ -19,6 +19,7 @@ private:
     glm::vec3 front;
     
     glm::mat4 viewMat;
+    glm::mat4 projectionMat;
 public:
     Camera();
 
@@ -28,7 +29,8 @@ public:
     void setYaw(float yaw);
     void setRoll(float roll);
 
-    inline glm::mat4 getViewMat() {return viewMat;}
+    inline const glm::mat4& getViewMat() const { return viewMat; }
+    inline const glm::mat4& getProjectionMat() const { return projectionMat; }
     inline glm::vec3 getView() {return view;}
     inline glm::vec3 getPosition() {return position;}
     inline glm::vec3 getRight() {return right;}

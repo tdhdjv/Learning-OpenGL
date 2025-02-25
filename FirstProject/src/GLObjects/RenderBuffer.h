@@ -1,7 +1,5 @@
 #pragma once
 
-#include <GLAD/glad.h>
-
 class RenderBuffer {
 private:
 	unsigned int rendererID;
