@@ -10,7 +10,7 @@ public:
 
 	void createWindow();
 	void swapBuffer();
-	inline const GLFWwindow* getGLFWWindow() { return glfwWindow; };
+	inline GLFWwindow* getGLFWWindow() const { return glfwWindow; };
 	inline bool shouldClose() { return glfwWindowShouldClose(glfwWindow); };
 private:
 	int width;

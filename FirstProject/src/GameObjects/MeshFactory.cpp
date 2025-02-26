@@ -111,7 +111,7 @@ MeshData createCubesphereMesh(const unsigned int subdivisions) {
     return meshData;
 }
 
-MeshData createQuad(unsigned int subdivisions, glm::vec3 up, glm::vec3 front) {
+MeshData createQuad3D(unsigned int subdivisions, glm::vec3 up, glm::vec3 front) {
     glm::vec3 normalUp = glm::normalize(up);
     glm::vec3 normalFront = glm::normalize(front);
     glm::vec3 normalRight = glm::normalize(cross(up, front));
@@ -145,3 +145,22 @@ MeshData createQuad(unsigned int subdivisions, glm::vec3 up, glm::vec3 front) {
     }
     return MeshData(vertex3DToVertexData(vertices), triangles, Vertex3D::layout);
 }
+
+MeshData createQuad2D() {
+    std::vector<float> vertexData {
+         // positions   // texCoords
+        -1.0f,  1.0f,     0.0f, 1.0f,
+        -1.0f, -1.0f,     0.0f, 0.0f,
+         1.0f, -1.0f,     1.0f, 0.0f,
+         1.0f,  1.0f,     1.0f, 1.0f
+    };
+
+    std::vector<Triangle> triangles = {
+        { 2, 1, 0 },
+        { 3, 2, 0 }
+    };
+    VertexBufferLayout layout;
+    layout.push<float>(2);
+    layout.push<float>(2);
+    return MeshData(vertexData, triangles, layout);
+};

@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "../Core/Input.h"
 #define PI 3.14159265359
 
 Camera::Camera()
@@ -12,7 +13,41 @@ Camera::Camera()
     view(0, 0, -1.0),
     projectionMat(glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f)) {
     calcSetView();
-};
+}
+void Camera::update(float dt)
+{
+    if (Input::isKeyPressed(KeyCode::W)) {
+        setPosition(position + front * dt);
+    }
+    if (Input::isKeyPressed(KeyCode::A)) {
+        setPosition(position + right * dt);
+    }
+    if (Input::isKeyPressed(KeyCode::S)) {
+        setPosition(position - front * dt);
+    }
+    if (Input::isKeyPressed(KeyCode::D)) {
+        setPosition(position - right * dt);
+    }
+    if (Input::isKeyPressed(KeyCode::Up)) {
+        setPitch(pitch + dt);
+    }
+    if (Input::isKeyPressed(KeyCode::Left)) {
+        setYaw(yaw + dt);
+    }
+    if (Input::isKeyPressed(KeyCode::Down)) {
+        setPitch(pitch - dt);
+    }
+    if (Input::isKeyPressed(KeyCode::Right)) {
+        setYaw(yaw - dt);
+    }
+    if (Input::isKeyPressed(KeyCode::Space)) {
+        setPosition(position + glm::vec3(0, 1, 0) * dt);
+    }
+    if (Input::isKeyPressed(KeyCode::LeftShift)) {
+        setPosition(position - glm::vec3(0, 1, 0) * dt);
+    }
+}
+;
 
 void Camera::setView(glm::vec3 view) {
     this->view = glm::normalize(view);

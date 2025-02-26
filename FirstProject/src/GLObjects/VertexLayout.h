@@ -25,6 +25,7 @@ private:
     unsigned int count;
 public:
     VertexBufferLayout();
+    VertexBufferLayout(const VertexBufferLayout& other);
     template<typename T> 
     void push(unsigned int count);
 

@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "../GameObjects/Mesh.h"
-#include "../GameObjects/Constructs.h"
+#include "../GameObjects/Light.h"
 #include "VertexArray.h"
 #include "Shader.h"
 

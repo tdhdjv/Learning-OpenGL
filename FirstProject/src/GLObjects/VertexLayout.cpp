@@ -1,7 +1,14 @@
 #include "VertexLayout.h"
 
 VertexBufferLayout::VertexBufferLayout()
-    : stride(0), count(0) {};
+    : stride(0), count(0) {}
+VertexBufferLayout::VertexBufferLayout(const VertexBufferLayout& other)
+{
+    stride = other.stride;
+    count = other.count;
+    elements = other.elements;
+}
+;
 
 template<>
 void VertexBufferLayout::push<float>(unsigned int count) {

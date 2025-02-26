@@ -203,6 +203,5 @@ void main()
     // gamma correct
     color = pow(color, vec3(1.0/2.2));
 
-    color = vec3(UV, 0.0);
     FragColor = vec4(color, texture2D(albedoMap, UV).a);
 } 

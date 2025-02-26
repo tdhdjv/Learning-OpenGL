@@ -37,9 +37,9 @@ inline std::vector<unsigned int> triangleToIndex(const std::vector<Triangle>& tr
 struct MeshData {
     std::vector<float> vertexData;
     std::vector<Triangle> triangles;
-    const VertexBufferLayout& layout;
+    const VertexBufferLayout layout;
 
-    MeshData(const std::vector<float> vertexData, const std::vector<Triangle> triangles, const VertexBufferLayout& layout)
+    MeshData(const std::vector<float> vertexData, const std::vector<Triangle> triangles, const VertexBufferLayout layout)
         :vertexData(vertexData), triangles(triangles), layout(layout) 
     {}
 
@@ -77,7 +77,7 @@ private:
     glm::mat4 modelMat;
 
 public:
-    Mesh(const std::vector<float>& vertices, const std::vector<Triangle>& triangle, const VertexBufferLayout& layout);
+    Mesh(const std::vector<float>& vertices, const std::vector<Triangle>& triangle, const VertexBufferLayout layout);
     Mesh(const MeshData& meshData);
 
     void bind() const;

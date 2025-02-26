@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "../GLObjects/ErrorCheck.h"
 #include <iostream>
 
 Window::Window(int width, int height, const char* name):

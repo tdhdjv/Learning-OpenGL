@@ -23,6 +23,8 @@ private:
 public:
     Camera();
 
+    void update(float dt);
+
     void setView(glm::vec3 view);
     void setPosition(glm::vec3 position);
     void setPitch(float pitch);

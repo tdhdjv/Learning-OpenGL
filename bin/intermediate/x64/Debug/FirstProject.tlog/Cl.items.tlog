@@ -1,8 +1,10 @@
 D:\C++ Projects\FirstProject\FirstProject\src\Core\Application.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\Application.obj
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Input.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\Input.obj
 D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\Scene.obj
 D:\C++ Projects\FirstProject\FirstProject\src\Core\Window.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\Window.obj
 D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Camera.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\Camera.obj
 D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Model3D.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\Model3D.obj
+D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\SkyBox.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\SkyBox.obj
 D:\C++ Projects\FirstProject\FirstProject\src\GLObjects\ErrorCheck.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\ErrorCheck.obj
 D:\C++ Projects\FirstProject\FirstProject\src\GLObjects\FrameBuffer.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\FrameBuffer.obj
 D:\C++ Projects\FirstProject\FirstProject\src\GLObjects\IndexBuffer.cpp;D:\C++ Projects\FirstProject\bin\intermediate\x64\Debug\IndexBuffer.obj

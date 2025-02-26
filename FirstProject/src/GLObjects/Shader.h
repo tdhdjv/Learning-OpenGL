@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-#include "../GameObjects/Constructs.h"
+#include "../GameObjects/Light.h"
 #include "glm/glm.hpp"
 #include "glm/matrix.hpp"
 
@@ -11,6 +11,7 @@ private:
     unsigned int vertexShader;
     unsigned int fragmentShader;
     unsigned int geometryShader;
+
     std::string vertexFilePath;
     std::string fragmentFilePath;
     std::string geometryFilePath;
@@ -18,7 +19,6 @@ private:
 public:
     Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath);
     Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath, const std::string& geometryShader);
-    Shader();
     ~Shader();
     
     void bind() const;
