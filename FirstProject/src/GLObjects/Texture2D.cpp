@@ -7,7 +7,6 @@
 #include "Texture2D.h"
 
 Texture2D::Texture2D(const char* filepath, unsigned int format) {
-    wasDeleted = false;
     GLCall(glGenTextures(1, &rendererID));
     GLCall(glBindTexture(GL_TEXTURE_2D, rendererID));
     

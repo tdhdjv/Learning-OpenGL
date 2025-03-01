@@ -37,7 +37,7 @@ struct Vertex3D {
 	glm::vec3 normal;
 	glm::vec3 tangent;
 
-	static const VertexBufferLayout layout;
+	static const std::shared_ptr<VertexBufferLayout> layout;
 };
 
 inline std::vector<float> vertex3DToVertexData(const std::vector<Vertex3D>& vertices) {

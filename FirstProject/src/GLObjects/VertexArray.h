@@ -8,6 +8,7 @@ private:
     unsigned int rendererID;
 public:
     VertexArray();
+    VertexArray(const VertexArray&) = delete;
     ~VertexArray();
     void setBuffer(const VertexBuffer& vertexBuffer, const IndexBuffer& indexBuffer, const VertexBufferLayout& layout) const;
     void bind() const;

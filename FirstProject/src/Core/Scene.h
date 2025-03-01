@@ -25,6 +25,7 @@ public:
 
 private:
 	std::shared_ptr<Shader> shader3D;
+	std::shared_ptr<Shader> occulsionShader;
 	std::vector<std::shared_ptr<Shader>> postProcessShaders;
 	std::vector< std::shared_ptr<Shader>> otherShaders;
 	std::vector<std::shared_ptr<Model3D>> models;
@@ -32,10 +33,15 @@ private:
 	std::vector<PointLight> pointLights;
 	std::vector<DirectionalLight> directionalLights;
 
+	SamplingFrameBuffer samplingFBO;
+	OcculsionFrameBuffer occulsionFBO;
 	FrameBuffer FBO;
 	SkyBox skyBox;
 
 	Camera camera;
 
 	Mesh quad;
+
+	//temporary
+	float gamma = 0.5;
 };

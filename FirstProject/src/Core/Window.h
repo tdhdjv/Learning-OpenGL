@@ -12,6 +12,8 @@ public:
 	void swapBuffer();
 	inline GLFWwindow* getGLFWWindow() const { return glfwWindow; };
 	inline bool shouldClose() { return glfwWindowShouldClose(glfwWindow); };
+	inline int getWidth() const { return width; }
+	inline int getHeight() const { return height; }
 private:
 	int width;
 	int height;

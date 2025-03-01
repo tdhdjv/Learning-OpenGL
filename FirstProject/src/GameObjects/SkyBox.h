@@ -13,7 +13,7 @@ public:
 	void render(const Camera& camera);
 
 private:
-	Shader shader;
 	unsigned int textureID;
+	std::unique_ptr<Shader> shader;
 	std::unique_ptr<Mesh> skyBoxMesh;
 };

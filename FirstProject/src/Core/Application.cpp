@@ -9,8 +9,6 @@
 Application* Application::instance = nullptr;
 
 Application::Application(const char* name):window(1000, 800, name){
-	window.createWindow();
-	scene = std::make_unique<Scene>();
 
 	if (instance == nullptr) {
 		instance = this;
@@ -18,6 +16,9 @@ Application::Application(const char* name):window(1000, 800, name){
 	else if (instance != this) {
 		std::cout << "[Warning] Another Instance of an application was Created!!!!" << std::endl;
 	}
+
+	window.createWindow();
+	scene = std::make_unique<Scene>();
 
 	std::shared_ptr<Texture2D> alebdoBox = std::make_shared < Texture2D>("FirstProject/res/image/shiny wood/albedo.png", GL_RGB);
 	std::shared_ptr<Texture2D> metallicMapBox = std::make_shared < Texture2D>("FirstProject/res/image/shiny wood/metallic.png", GL_RED);
@@ -35,14 +36,18 @@ Application::Application(const char* name):window(1000, 800, name){
 	std::shared_ptr<Texture2D> metallicMapCir = std::make_shared < Texture2D>("FirstProject/res/image/circuitry/metallic.png", GL_RED);
 	std::shared_ptr<Texture2D> smoothnessMapCir = std::make_shared < Texture2D>("FirstProject/res/image/circuitry/roughness.png", GL_RED);
 	std::shared_ptr<Texture2D> normalMapCir = std::make_shared < Texture2D>("FirstProject/res/image/circuitry/normal.png", GL_RGB);
-	std::shared_ptr<Texture2D> depthMapCir = std::make_shared < Texture2D>("FirstProject/res/image/shiny wood/displacement.png", GL_RED);
+	std::shared_ptr<Texture2D> depthMapCir = std::make_shared < Texture2D>("FirstProject/res/image/shiny wood/displacement.png", GL_RGBA);
 
 	std::shared_ptr<Mesh> mesh1 = std::make_shared<Mesh>(createCubeMesh());
 	mesh1->setPosition({ 0, 0, 5 });
 	std::shared_ptr<Mesh> mesh2 = std::make_shared<Mesh>(createCubesphereMesh(32));
 	mesh2->setPosition({ 0, 0, 3 });
-	std::shared_ptr<Mesh> mesh3 = std::make_shared<Mesh>(createQuad3D(0, { 0, 0, -1 }, {0, 1, 0}));
+	std::shared_ptr<Mesh> mesh3 = std::make_shared<Mesh>(createQuad3D(0, { 0, 0, -1 }, { 0, 1, 0 }));
 	mesh3->setPosition({ 0, 0, 1 });
+	std::shared_ptr<Mesh> mesh4 = std::make_shared<Mesh>(createQuad3D(0, { 0, 1, 0 }, { 0, 0, 1 }));
+	mesh4->setPosition({ 0, -0.5, 0 });
+	mesh4->setScale(glm::vec3(100.0));
+
 	std::shared_ptr<Material> materialBox = std::make_shared<Material>(
 		alebdoBox,
 		metallicMapBox,
@@ -69,14 +74,16 @@ Application::Application(const char* name):window(1000, 800, name){
 
 	std::shared_ptr<Model3D> model1 = std::make_shared<Model3D>(mesh1, materialBox);
 	std::shared_ptr<Model3D> model2 = std::make_shared<Model3D>(mesh2, materialRough);
-	std::shared_ptr<Model3D> model3 = std::make_shared<Model3D>(mesh3, materialCir);
+	std::shared_ptr<Model3D> model3 = std::make_shared<Model3D>(mesh3, materialCir);;
+	std::shared_ptr<Model3D> model4 = std::make_shared<Model3D>(mesh4, materialCir);
 
 	scene->addModel(model1);
 	scene->addModel(model2);
 	scene->addModel(model3);
+	scene->addModel(model4);
 
-	scene->addDirectionalLight({ {0.0, 1.0, -1.0}, {10.0, 10.0, 10.0} });
-	scene->addPointLight({ {0.0, 0.0, 0.0}, {10.0, 10.0, 10.0} });
+	scene->addDirectionalLight({ {1.0, 1.0, -1.0}, {10.0, 10.0, 10.0} });
+	//scene->addPointLight({ {0.0, 0.0, 0.0}, {10.0, 10.0, 10.0} });
 }
 
 Application::~Application() {

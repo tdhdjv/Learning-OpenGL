@@ -12,6 +12,7 @@ private:
 
 public:
     IndexBuffer(const unsigned int* indices, unsigned int size);
+    IndexBuffer(const IndexBuffer&) = delete;
     ~IndexBuffer();
 
     void bind() const;

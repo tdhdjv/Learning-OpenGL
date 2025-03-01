@@ -14,6 +14,7 @@ struct DirectionalLight {
 out vec4 FragColor;
 
 in vec3 FragPos;  
+in vec4 LightSpacePos;
 in vec3 Normal;  
 in vec3 Tangent;  
 in vec3 BiTangent;  
@@ -36,6 +37,11 @@ uniform sampler2D metallicMap;
 uniform sampler2D roughnessMap;
 uniform sampler2D normalMap;
 uniform sampler2D depthMap;
+
+//Temporary
+uniform float offset;
+
+uniform sampler2D shadowMap;
 
 #define MAX_DIRECTIONAL_LIGHT 8
 #define MAX_POINT_LIGHT 8
@@ -178,17 +184,28 @@ void main()
     metallic = texture(metallicMap, UV).r;
     roughness = texture(roughnessMap, UV).r;
 
-
+    //shadow mapping
+    float bias = 0.05;
+    vec3 projCoords = LightSpacePos.xyz / LightSpacePos.w;
+    projCoords = projCoords * 0.5 + vec3(offset);
+    float attenuation = 1.0;
+    for (int i = -1; i <= 1; i++)  {
+        for (int j = -1; j <= 1; j++)  {
+            vec2 shadowUV = projCoords.xy + vec2(i, j) * 0.001;
+            if(abs(texture2D(shadowMap, shadowUV).r+bias) < projCoords.z) {
+                attenuation -= 1.0/9.0;
+            }
+        }
+    }
     
     for(int i = 0; i < dirLightCount; i++) {
         vec3 lightDir = normalize(dirLights[i].direction);
-        float attenuation = 1.0;
         result += light(lightDir, view, normal, dirLights[i].color) * attenuation;
     }
     
     for(int i = 0; i < pointLightCount; i++) {
         vec3 lightDir = normalize(pointLights[i].position - FragPos);
-        float attenuation = 1.0/pow(length(pointLights[i].position - FragPos), 2.0);
+        attenuation /= pow(length(pointLights[i].position - FragPos), 2.0);
         result += light(lightDir, view, normal, pointLights[i].color) * attenuation;
     }
 
@@ -197,11 +214,5 @@ void main()
     vec3 ambient = vec3(0.03) * albedo* 1.0;
     
     vec3 color = ambient + result;
-
-    // HDR tonemapping
-    color = color / (color + vec3(1.0));
-    // gamma correct
-    color = pow(color, vec3(1.0/2.2));
-
     FragColor = vec4(color, texture2D(albedoMap, UV).a);
 } 

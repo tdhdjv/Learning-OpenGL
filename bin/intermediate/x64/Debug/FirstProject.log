@@ -1,9 +1,11 @@
-﻿  Scene.cpp
+﻿  Application.cpp
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Application.cpp(94,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Application.cpp(96,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-  (compiling source file 'FirstProject/src/Core/Scene.cpp')
+  (compiling source file 'FirstProject/src/Core/Application.cpp')
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103):
       the template instantiation context (the oldest one first) is
-          D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Mesh.h(61,29):
+          D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Mesh.h(59,29):
           see reference to function template instantiation 'void std::vector<Triangle,std::allocator<Triangle>>::emplace_back<size_t,size_t,size_t>(size_t &&,size_t &&,size_t &&)' being compiled
           C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(858,24):
           see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled

@@ -6,7 +6,7 @@
 #include "../vendor/std_image/std_image.h"
 
 SkyBox::SkyBox(const std::string right, const std::string left, const std::string top, const std::string bottom, const std::string front, const std::string back)
-    :shader("FirstProject/res/shaders/SkyBox.vert", "FirstProject/res/shaders/SkyBox.frag"),
+    :shader(std::make_unique<Shader>("FirstProject/res/shaders/SkyBox.vert", "FirstProject/res/shaders/SkyBox.frag")),
     skyBoxMesh(std::make_unique<Mesh>(createCubeMesh())),
     textureID(0)
 {
@@ -45,16 +45,16 @@ SkyBox::~SkyBox() {
 }
 
 void SkyBox::render(const Camera& camera) {
-    shader.bind();
-    shader.setUniform1i("skybox", 9);
+    shader->bind();
+    shader->setUniform1i("skybox", 9);
 
     glDepthFunc(GL_LEQUAL);
     glCullFace(GL_BACK);
 
     //removes the 4th row, column of the matrix to remove the translation
     glm::mat4 noTransView = glm::mat4(glm::mat3(camera.getViewMat()));
-    shader.setUniformMat4f("view", noTransView);
-    shader.setUniformMat4f("projection", camera.getProjectionMat());
+    shader->setUniformMat4f("view", noTransView);
+    shader->setUniformMat4f("projection", camera.getProjectionMat());
 
     skyBoxMesh->bind();
 

@@ -159,8 +159,8 @@ MeshData createQuad2D() {
         { 2, 1, 0 },
         { 3, 2, 0 }
     };
-    VertexBufferLayout layout;
-    layout.push<float>(2);
-    layout.push<float>(2);
+    std::shared_ptr<VertexBufferLayout> layout = std::make_shared<VertexBufferLayout>();
+    layout->push<float>(2);
+    layout->push<float>(2);
     return MeshData(vertexData, triangles, layout);
 };

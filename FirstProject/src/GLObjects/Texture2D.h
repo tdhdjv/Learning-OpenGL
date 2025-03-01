@@ -8,10 +8,10 @@ private:
     int channel;
 public:
     Texture2D(const char* filepath, unsigned int format);
+    Texture2D(const Texture2D&) = delete;
     ~Texture2D();
 
     void bind(unsigned int slot = 0) const;
     void unBind() const;
     unsigned int getRendererID();
-    bool wasDeleted;
 };

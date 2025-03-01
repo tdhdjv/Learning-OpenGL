@@ -19,6 +19,7 @@ private:
 public:
     Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath);
     Shader(const std::string& vertexFilePath, const std::string& fragmentFilePath, const std::string& geometryShader);
+    Shader(const Shader&) = delete;
     ~Shader();
     
     void bind() const;

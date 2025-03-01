@@ -37,21 +37,19 @@ inline std::vector<unsigned int> triangleToIndex(const std::vector<Triangle>& tr
 struct MeshData {
     std::vector<float> vertexData;
     std::vector<Triangle> triangles;
-    const VertexBufferLayout layout;
 
-    MeshData(const std::vector<float> vertexData, const std::vector<Triangle> triangles, const VertexBufferLayout layout)
+    const std::shared_ptr<VertexBufferLayout> layout;
+
+    MeshData(const std::vector<float> vertexData, const std::vector<Triangle> triangles, const std::shared_ptr<VertexBufferLayout> layout)
         :vertexData(vertexData), triangles(triangles), layout(layout) 
     {}
 
     MeshData(const MeshData& meshData) :vertexData(meshData.vertexData), triangles(meshData.triangles), layout(meshData.layout) {};
 
     inline MeshData& operator += (const MeshData& other) {
-        if (this == &other) {
-            throw std::runtime_error("Self-addition is not allowed");
-        }
 
         //offset calculation
-        size_t offset = vertexData.size() / layout.getCount();
+        size_t offset = vertexData.size() / layout->getCount();
 
         // Append vertex data
         this->vertexData.insert(this->vertexData.end(), other.vertexData.begin(), other.vertexData.end());
@@ -67,17 +65,19 @@ struct MeshData {
 
 class Mesh {
 private:
-    const VertexArray VAO;
-    const VertexBuffer vertexBuffer;
-    const IndexBuffer indexBuffer;
-    const MeshData meshData;
+    //The Mesh should be incharge of the buffers lifetime
+    const std::unique_ptr<VertexArray> VAO;
+    const std::unique_ptr<VertexBuffer> vertexBuffer;
+    const std::unique_ptr<IndexBuffer> indexBuffer;
+    //for debugging perpose, on
+    const std::unique_ptr<MeshData> meshData;
 
     glm::vec3 scale;
     glm::vec3 position;
     glm::mat4 modelMat;
 
 public:
-    Mesh(const std::vector<float>& vertices, const std::vector<Triangle>& triangle, const VertexBufferLayout layout);
+    Mesh(const std::vector<float>& vertices, const std::vector<Triangle>& triangle, const std::shared_ptr<VertexBufferLayout> layout);
     Mesh(const MeshData& meshData);
 
     void bind() const;
@@ -87,6 +87,5 @@ public:
     void setScale(const glm::vec3 scale);
 
     inline const glm::mat4& getModelMat() const{ return modelMat; }
-    inline const VertexArray& getVertexArray() const { return VAO; }
-    inline unsigned int getIndexCount() const { return indexBuffer.getCount(); }
+    inline unsigned int getIndexCount() const { return indexBuffer->getCount(); }
 };
