@@ -21,9 +21,9 @@ public:
 	glm::vec3 color;
 
 	DirectionalLight(const glm::vec3& direction, const glm::vec3& color) :direction(direction), color(color) {
-		float near_plane = 0.01f, far_plane = 20.0f;
+		float near_plane = 0.01f, far_plane = 10.0f;
 		projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-		view = glm::lookAt(2.0f*glm::normalize(direction), {0, 0, 0}, {0, 1, 0});
+		view = glm::lookAt(5.0f*glm::normalize(direction), {0, 0, 0}, {0, 1, 0});
 		transform = projection * view;
 	}
 

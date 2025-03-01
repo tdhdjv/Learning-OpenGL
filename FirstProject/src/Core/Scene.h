@@ -43,5 +43,5 @@ private:
 	Mesh quad;
 
 	//temporary
-	float gamma = 0.5;
+	float gamma = 0.0;
 };

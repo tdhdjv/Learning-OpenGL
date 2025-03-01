@@ -185,15 +185,14 @@ void main()
     roughness = texture(roughnessMap, UV).r;
 
     //shadow mapping
-    float bias = 0.05;
     vec3 projCoords = LightSpacePos.xyz / LightSpacePos.w;
-    projCoords = projCoords * 0.5 + vec3(offset);
+    projCoords = projCoords * 0.5 + 0.5;
     float attenuation = 1.0;
     for (int i = -1; i <= 1; i++)  {
         for (int j = -1; j <= 1; j++)  {
-            vec2 shadowUV = projCoords.xy + vec2(i, j) * 0.001;
-            if(abs(texture2D(shadowMap, shadowUV).r+bias) < projCoords.z) {
-                attenuation -= 1.0/9.0;
+            vec2 shadowUV = projCoords.xy + vec2(i, j) * 0.0005;
+            if(abs(texture2D(shadowMap, shadowUV).r+offset) < projCoords.z) {
+                attenuation -= 1.0/10.0;
             }
         }
     }

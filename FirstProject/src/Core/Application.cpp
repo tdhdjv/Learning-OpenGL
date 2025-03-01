@@ -45,8 +45,8 @@ Application::Application(const char* name):window(1000, 800, name){
 	std::shared_ptr<Mesh> mesh3 = std::make_shared<Mesh>(createQuad3D(0, { 0, 0, -1 }, { 0, 1, 0 }));
 	mesh3->setPosition({ 0, 0, 1 });
 	std::shared_ptr<Mesh> mesh4 = std::make_shared<Mesh>(createQuad3D(0, { 0, 1, 0 }, { 0, 0, 1 }));
-	mesh4->setPosition({ 0, -0.5, 0 });
-	mesh4->setScale(glm::vec3(100.0));
+	mesh4->setPosition({ 0, -0.5, 3.0f });
+	mesh4->setScale(glm::vec3(10.0));
 
 	std::shared_ptr<Material> materialBox = std::make_shared<Material>(
 		alebdoBox,
