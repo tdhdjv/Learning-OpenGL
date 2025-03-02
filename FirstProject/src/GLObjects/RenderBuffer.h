@@ -15,19 +15,3 @@ public:
 		return rendererID;
 	}
 };
-
-class SamplingRenderBuffer {
-private:
-	unsigned int rendererID;
-public:
-	SamplingRenderBuffer();
-	SamplingRenderBuffer(const SamplingRenderBuffer&) = delete;
-	~SamplingRenderBuffer();
-
-	void bind() const;
-	void unBind() const;
-
-	inline unsigned int getRendererID() {
-		return rendererID;
-	}
-};

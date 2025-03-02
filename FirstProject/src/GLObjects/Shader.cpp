@@ -89,7 +89,6 @@ void Shader::setUniform2f(const std::string name, float f1, float f2) const {
     GLCall(glUniform2f(getUniformLocation(name), f1, f2));
 }
 
-
 void Shader::setUniformMat4f(const std::string name, glm::mat4 matrix) const {
     bind();
     GLCall(glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));

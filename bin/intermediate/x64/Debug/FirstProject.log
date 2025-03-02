@@ -1,6 +1,74 @@
-﻿  Scene.cpp
-D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.cpp(43,15): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.cpp(46,15): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+﻿  Application.cpp
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.h(50,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'FirstProject/src/Core/Application.cpp')
+  
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Application.cpp(103,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Application.cpp(105,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'FirstProject/src/Core/Application.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103):
+      the template instantiation context (the oldest one first) is
+          D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Mesh.h(59,29):
+          see reference to function template instantiation 'void std::vector<Triangle,std::allocator<Triangle>>::emplace_back<size_t,size_t,size_t>(size_t &&,size_t &&,size_t &&)' being compiled
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(858,24):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Ty=Triangle
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(776,20):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Ty=Triangle
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(794,27):
+          see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,unsigned __int64,unsigned __int64,unsigned __int64>(_Alloc &,_Objty *const ,unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Triangle>,
+              _Ty=Triangle,
+              _Objty=Triangle
+          ]
+  
+  Input.cpp
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.h(50,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'FirstProject/src/Core/Input.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'FirstProject/src/Core/Input.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103):
+      the template instantiation context (the oldest one first) is
+          D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Mesh.h(59,29):
+          see reference to function template instantiation 'void std::vector<Triangle,std::allocator<Triangle>>::emplace_back<size_t,size_t,size_t>(size_t &&,size_t &&,size_t &&)' being compiled
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(858,24):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Ty=Triangle
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(776,20):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Ty=Triangle
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(794,27):
+          see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,unsigned __int64,unsigned __int64,unsigned __int64>(_Alloc &,_Objty *const ,unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Triangle>,
+              _Ty=Triangle,
+              _Objty=Triangle
+          ]
+  
+  Scene.cpp
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.h(50,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'FirstProject/src/Core/Scene.cpp')
+  
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.cpp(47,15): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.cpp(50,15): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.cpp(105,29): warning C4018: '<': signed/unsigned mismatch
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
   (compiling source file 'FirstProject/src/Core/Scene.cpp')
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103):
@@ -28,4 +96,67 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.3443
               _Objty=Triangle
           ]
   
+  RenderBuffer.cpp
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.h(50,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'FirstProject/src/GLObjects/RenderBuffer.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'FirstProject/src/GLObjects/RenderBuffer.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103):
+      the template instantiation context (the oldest one first) is
+          D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Mesh.h(59,29):
+          see reference to function template instantiation 'void std::vector<Triangle,std::allocator<Triangle>>::emplace_back<size_t,size_t,size_t>(size_t &&,size_t &&,size_t &&)' being compiled
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(858,24):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Ty=Triangle
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(776,20):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Ty=Triangle
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(794,27):
+          see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,unsigned __int64,unsigned __int64,unsigned __int64>(_Alloc &,_Objty *const ,unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Triangle>,
+              _Ty=Triangle,
+              _Objty=Triangle
+          ]
+  
+  Main.cpp
+D:\C++ Projects\FirstProject\FirstProject\src\Core\Scene.h(50,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'FirstProject/src/Main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'FirstProject/src/Main.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\xmemory(700,103):
+      the template instantiation context (the oldest one first) is
+          D:\C++ Projects\FirstProject\FirstProject\src\GameObjects\Mesh.h(59,29):
+          see reference to function template instantiation 'void std::vector<Triangle,std::allocator<Triangle>>::emplace_back<size_t,size_t,size_t>(size_t &&,size_t &&,size_t &&)' being compiled
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(858,24):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Ty=Triangle
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(776,20):
+          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<unsigned __int64,unsigned __int64,unsigned __int64>(unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Ty=Triangle
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\include\vector(794,27):
+          see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,unsigned __int64,unsigned __int64,unsigned __int64>(_Alloc &,_Objty *const ,unsigned __int64 &&,unsigned __int64 &&,unsigned __int64 &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Triangle>,
+              _Ty=Triangle,
+              _Objty=Triangle
+          ]
+  
+  Generating Code...
   FirstProject.vcxproj -> D:\C++ Projects\FirstProject\bin\x64\Debug\FirstProject.exe

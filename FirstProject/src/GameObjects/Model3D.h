@@ -12,14 +12,16 @@ struct Material {
 	const std::shared_ptr<Texture2D> roughnessMap;
 	const std::shared_ptr<Texture2D> normalMap;
 	const std::shared_ptr<Texture2D> displacementMap;
+	const std::shared_ptr<Texture2D> emissionMap;
 
 	Material(std::shared_ptr<Texture2D> albedo, std::shared_ptr<Texture2D> metallic, std::shared_ptr<Texture2D> roughness,
-		std::shared_ptr<Texture2D> normal, std::shared_ptr<Texture2D>displacement)
+		std::shared_ptr<Texture2D> normal, std::shared_ptr<Texture2D>displacement, std::shared_ptr<Texture2D>emission)
 		: albedoMap(albedo),
 		metallicMap(metallic),
 		roughnessMap(roughness),
 		normalMap(normal),
-		displacementMap(displacement)
+		displacementMap(displacement),
+		emissionMap(emission)
 	{}
 
 	void bindTextures(int starting_slot) const {
@@ -28,6 +30,7 @@ struct Material {
 		roughnessMap->bind(starting_slot+2);
 		normalMap->bind(starting_slot+3);
 		displacementMap->bind(starting_slot+4);
+		emissionMap->bind(starting_slot + 5);
 	}
 };
 
@@ -69,4 +72,5 @@ private:
 public:
 	Model3D(const std::shared_ptr<Mesh> mesh, const std::shared_ptr<Material> material);
 	void render(const Shader& shader) const;
+	void bind() const;
 };

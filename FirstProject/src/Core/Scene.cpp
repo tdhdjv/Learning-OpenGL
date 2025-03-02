@@ -4,15 +4,18 @@
 #include "../Core/Application.h"
 
 Scene::Scene() :
-	shader3D(std::make_unique<Shader>("FirstProject/res/shaders/Shader3D.vert", "FirstProject/res/shaders/Shader3D.frag")),
+	shader3D(std::make_unique<Shader>("FirstProject/res/shaders/PBR.vert", "FirstProject/res/shaders/PBR.frag")),
+	lightShader(std::make_unique<Shader>("FirstProject/res/shaders/Light.vert", "FirstProject/res/shaders/Light.frag")),
 	occulsionShader(std::make_unique<Shader>("FirstProject/res/shaders/LightDepth.vert", "FirstProject/res/shaders/LightDepth.frag")),
+	bloomShader(std::make_unique<Shader>("FirstProject/res/shaders/DefaultPostProcess.vert", "FirstProject/res/shaders/Bloom.frag")),
 	postProcessShaders(),
 	otherShaders(),
-	models(), 
-	samplingFBO(),
-	occulsionFBO(),
-	FBO(), 
-	skyBox(	
+	models(),
+	FBO(false, Application::getInstance().getWindow().getWidth(), Application::getInstance().getWindow().getHeight()),
+	pingPongFBO1(false, Application::getInstance().getWindow().getWidth(), Application::getInstance().getWindow().getHeight()),
+	pingPongFBO2(false, Application::getInstance().getWindow().getWidth(), Application::getInstance().getWindow().getHeight()),
+	directionalLightOcculsion(false, 4096, 4096),
+	skyBox(
 		"FirstProject/res/image/skybox/right.jpg",
 		"FirstProject/res/image/skybox/left.jpg",
 		"FirstProject/res/image/skybox/top.jpg",
@@ -24,6 +27,7 @@ Scene::Scene() :
 	quad(createQuad2D())
 {
 	postProcessShaders.emplace_back(std::make_unique<Shader>("FirstProject/res/shaders/DefaultPostProcess.vert", "FirstProject/res/shaders/DefaultPostProcess.frag"));
+	lightMesh = std::make_shared<Mesh>(createCubesphereMesh(32));
 
 	GLCall(glEnable(GL_DEPTH_TEST));
 	GLCall(glDepthFunc(GL_LESS));
@@ -35,7 +39,7 @@ Scene::Scene() :
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 	GLCall(glEnable(GL_MULTISAMPLE));
-	GLCall(glEnable(GL_FRAMEBUFFER_SRGB))
+	GLCall(glEnable(GL_FRAMEBUFFER_SRGB));
 }
 
 void Scene::update(float dt) {
@@ -49,63 +53,92 @@ void Scene::update(float dt) {
 }
 
 void Scene::render() {
-	
-
-	//Shadowing
-	occulsionFBO.bind();
-	occulsionShader->bind();
-	occulsionShader->setUniformMat4f("lightSpaceMatrix", directionalLights[0].getTransform());
-	glViewport(0, 0, 4096, 4096);
-	GLCall(glClear(GL_DEPTH_BUFFER_BIT));
-
-	for (std::shared_ptr<Model3D>& model : models) {
-		model->render(*occulsionShader);
-	}
-	glViewport(0, 0, Application::getInstance().getWindow().getWidth(), Application::getInstance().getWindow().getHeight());
-	occulsionFBO.bindDepthTexture(5);
-	
-	samplingFBO.bind();
-	GLCall(glClearColor(0.4f, 0.6f, 0.7f, 1.0f));
+	 
+	//first rendering
+	FBO.bind();
+	GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 
 	//model render
 	shader3D->setUniform3f("viewPos", camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
 	shader3D->setUniformMat4f("view", camera.getViewMat());
 	shader3D->setUniformMat4f("projection", camera.getProjectionMat());
-	shader3D->setUniformMat4f("lightTransform", directionalLights[0].getTransform());
 	shader3D->setUniform1i("albedoMap", 0);
 	shader3D->setUniform1i("metallicMap", 1);
 	shader3D->setUniform1i("roughnessMap", 2);
 	shader3D->setUniform1i("normalMap", 3);
 	shader3D->setUniform1i("depthMap", 4);
-	shader3D->setUniform1i("shadowMap", 5);
-	shader3D->setUniform1f("offset", gamma);
+	shader3D->setUniform1i("emissionMap", 5);
 
 	for (std::shared_ptr<Model3D>& model : models) {
 		model->render(*shader3D);
 	}
 	
+	
+	//Light Rendering
+	lightShader->bind();
+	lightShader->setUniformMat4f("view", camera.getViewMat());
+	lightShader->setUniformMat4f("projection", camera.getProjectionMat());
+	for (const PointLight& pointLight : pointLights) {
+		lightMesh->setPosition(pointLight.position);
+		lightMesh->bind();
+		lightShader->setUniformMat4f("model", lightMesh->getModelMat());
+		lightShader->setUniform3f("lightColor", pointLight.color.r, pointLight.color.g, pointLight.color.b);
+		int count = lightMesh->getIndexCount();
+		GLCall(glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, NULL));
+
+	}
+
 
 	//skybox
 	skyBox.render(camera);
 
 	//Post-Process
-
-	samplingFBO.writeToFBO(FBO);
-	//occulsionFBO.writeToFBO(FBO);
-	FBO.unBind();
-	FBO.bindColorBufferTexture(8);
-	//occulsionFBO.bindDepthTexture(8);
-	
 	GLCall(glDisable(GL_DEPTH_TEST));
 	GLCall(glDisable(GL_CULL_FACE));
-	
+
+	//Bloom
+	int horizontal = 1;
+	bool first_iteration = true;
+	int amount = 10;
+	bloomShader->bind();
+	for (unsigned int i = 0; i < amount; i++)
+	{
+		if (i % 2 == 0) pingPongFBO1.bind();
+		else pingPongFBO2.bind();
+
+		if (first_iteration) {
+			FBO.bindColorBufferTexture(9, 1);
+		}
+		else if (i % 2 == 0) pingPongFBO2.bindColorBufferTexture(9, 0);
+		else pingPongFBO1.bindColorBufferTexture(9, 0);
+
+		bloomShader->setUniform1i("horizontal", horizontal);
+		bloomShader->setUniform1i("image", 9);
+		quad.bind();
+
+		int count = quad.getIndexCount();
+		GLCall(glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, NULL));
+
+		horizontal = (horizontal+1) % 2;
+		if (first_iteration)
+			first_iteration = false;
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//HDR, Gamma correction
+	FBO.unBind();
+	FBO.bindColorBufferTexture(8, 0);
+	pingPongFBO2.bindColorBufferTexture(9, 0);
 	GLCall(glClearColor(0.4f, 0.6f, 0.7f, 1.0f));
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+
 	
 	for (std::shared_ptr<Shader> shader : postProcessShaders) {
 		shader->bind();
 		shader->setUniform1i("colorBuffer", 8);
+		shader->setUniform1i("bloomBuffer", 9);
 		quad.bind();
 
 		int count = quad.getIndexCount();
@@ -114,7 +147,6 @@ void Scene::render() {
 
 	GLCall(glEnable(GL_CULL_FACE));
 	GLCall(glEnable(GL_DEPTH_TEST));
-	
 }
 
 void Scene::addModel(const std::shared_ptr<Model3D> model)

@@ -38,6 +38,10 @@ Application::Application(const char* name):window(1000, 800, name){
 	std::shared_ptr<Texture2D> normalMapCir = std::make_shared < Texture2D>("FirstProject/res/image/circuitry/normal.png", GL_RGB);
 	std::shared_ptr<Texture2D> depthMapCir = std::make_shared < Texture2D>("FirstProject/res/image/shiny wood/displacement.png", GL_RGBA);
 
+
+	std::shared_ptr<Texture2D> emissionDark = std::make_shared < Texture2D>("FirstProject/res/image/dark.png", GL_RGBA);
+	std::shared_ptr<Texture2D> emissionLight = std::make_shared < Texture2D>("FirstProject/res/image//circuitry/emission.png", GL_RGB);
+
 	std::shared_ptr<Mesh> mesh1 = std::make_shared<Mesh>(createCubeMesh());
 	mesh1->setPosition({ 0, 0, 5 });
 	std::shared_ptr<Mesh> mesh2 = std::make_shared<Mesh>(createCubesphereMesh(32));
@@ -53,14 +57,16 @@ Application::Application(const char* name):window(1000, 800, name){
 		metallicMapBox,
 		smoothnessMapBox,
 		normalMapBox,
-		depthMapBox
+		depthMapBox,
+		emissionDark
 	);
 	std::shared_ptr<Material> materialRough = std::make_shared<Material>(
 		alebdoRough,
 		metallicMapRough,
 		smoothnessMapRough,
 		normalMapRough,
-		depthMapRough
+		depthMapRough,
+		emissionDark
 	);
 
 
@@ -69,7 +75,8 @@ Application::Application(const char* name):window(1000, 800, name){
 		metallicMapCir,
 		smoothnessMapCir,
 		normalMapCir,
-		depthMapCir
+		depthMapCir,
+		emissionLight
 	);
 
 	std::shared_ptr<Model3D> model1 = std::make_shared<Model3D>(mesh1, materialBox);
@@ -82,8 +89,10 @@ Application::Application(const char* name):window(1000, 800, name){
 	scene->addModel(model3);
 	scene->addModel(model4);
 
-	scene->addDirectionalLight({ {1.0, 1.0, -1.0}, {10.0, 10.0, 10.0} });
-	//scene->addPointLight({ {0.0, 0.0, 0.0}, {10.0, 10.0, 10.0} });
+	scene->addDirectionalLight({ {-1.0, 1.0, -1.0}, 10.0f*glm::vec3(1.0)});
+	scene->addPointLight({ {0.0, 0.0, 0.0}, {10.0, 10.0, 10.0} });
+	scene->addPointLight({ {0.0, 1.0, 5.0}, 10.0f * glm::vec3(1.0, 1.0, 1.0) });
+	scene->addPointLight({ {2.0, 0.0, 5.0}, 10.0f * glm::vec3(1.0, 1.0, 1.0) });
 }
 
 Application::~Application() {
